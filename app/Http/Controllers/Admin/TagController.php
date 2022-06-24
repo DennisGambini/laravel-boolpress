@@ -47,15 +47,17 @@ class TagController extends Controller
         $newTag = new Tag();
 
         $newTag->name = $data['name'];
-        $slug = $data['name']->slug('-');
+        $slug = Str::of($data['name'])->slug('-');
         $k = 1;
         while (Tag::where('name', $slug)->first()){
-            $slug = $slug."-{$count}";
-            $count++;
+            $slug = Str::of($data['name'])."-{$k}";
+            $k++;
         }
         $newTag->slug = $slug;
 
         $newTag->save();
+
+        return redirect()->route('admin.tags.show', $newTag->id);
 
     }
 
@@ -68,7 +70,7 @@ class TagController extends Controller
     public function show($id)
     {
         $tag = Tag::findOrFail($id);
-        return view('admin.tags.show', $tag);
+        return view('admin.tags.show', compact('tag'));
     }
 
     /**

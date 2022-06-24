@@ -1,4 +1,4 @@
-@extends('layouts.categories')
+@extends('layouts.tags')
 
 @section('pageTitle', 'All Tags')
 
