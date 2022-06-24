@@ -49942,9 +49942,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\MAMP\htdocs\esercizi-php\esercizi_classe_59\laravel-one-to-many\laravel-one-to-many\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\MAMP\htdocs\esercizi-php\esercizi_classe_59\laravel-one-to-many\laravel-one-to-many\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! C:\MAMP\htdocs\esercizi-php\esercizi_classe_59\laravel-one-to-many\laravel-one-to-many\resources\sass\front.scss */"./resources/sass/front.scss");
+__webpack_require__(/*! C:\MAMP\htdocs\esercizi-php\esercizi_classe_59\laravel-boolpress\laravel-boolpress\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\MAMP\htdocs\esercizi-php\esercizi_classe_59\laravel-boolpress\laravel-boolpress\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\MAMP\htdocs\esercizi-php\esercizi_classe_59\laravel-boolpress\laravel-boolpress\resources\sass\front.scss */"./resources/sass/front.scss");
 
 
 /***/ })

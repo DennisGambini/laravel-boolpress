@@ -50080,7 +50080,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\MAMP\htdocs\esercizi-php\esercizi_classe_59\laravel-one-to-many\laravel-one-to-many\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\MAMP\htdocs\esercizi-php\esercizi_classe_59\laravel-boolpress\laravel-boolpress\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
