@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Post;
 use App\Category;
+use App\Tag;
 
 class PostController extends Controller
 {
@@ -36,8 +37,9 @@ class PostController extends Controller
      */
     public function create()
     {
+        $tags = Tag::all();
         $categories = Category::all();
-        return view('admin.posts.create', compact('categories'));
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -75,6 +77,11 @@ class PostController extends Controller
 
         $newPost->save();
 
+        // fuori dal save perchè sta nella tabella ponte
+        if(isset($data['tags'])){
+            $newPost->tags()->sync($data['tags']);
+        }
+
         return redirect()->route('admin.posts.show', $newPost->id);
     }
 
@@ -98,9 +105,10 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        $tags = Tag::all();
         $categories = Category::all();
         $post = Post::findOrFail($id);
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -130,7 +138,22 @@ class PostController extends Controller
             }
         }
 
+        if( isset($data['image']) ) {
+            // cancello l'immagine
+            Storage::delete($post->image);
+            // salvo la nuova immagine
+            $path_image = Storage::put("uploads", $data['image']);
+            $post->image = $path_image;
+        }
+
         $updatedPost->update();
+
+        // fatto dopo il save xk tabella ponte
+        if(isset($data['tags'])){
+            $updatedPost->tags()->sync($data['tags']);
+        } else {
+            $updatedPost->tags()->sync([]);
+        }
 
         return redirect()->route('admin.posts.show', $updatedPost->id);
 
@@ -145,7 +168,11 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
+        
+        $post->tags()->sync([]);
+
         $post->delete();
+
 
         return redirect()->route('admin.posts.index');
     }

@@ -29,6 +29,14 @@
               <label class="form-check-label" for="published">Publish now?</label>
             </div>
 
+            {{-- immagine --}}
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload Post Image</label>
+                <input class="form-control" type="file" id="image" name="image">
+                <img src="{{asset('storage/'.$post->image)}}" alt="user post image">
+            </div>
+
+            {{-- categorie --}}
             <div class="mb-3">
                 <label for="category_id" class="form-label">Category : </label>
                 <select name="category_id" id="category_id">
@@ -37,6 +45,33 @@
                     <option value="{{$category->id}}" {{$category->id == $post->category_id ? 'selected' : ''}}>{{$category->name}}</option>
                     @endforeach
                 </select>
+            </div>
+
+            {{-- tags --}}
+            {{-- <div class="mb-3">
+                <label for="tags" class="form-label">Tags : </label>
+                <select name="tags" id="category_id">
+                    <option value="">Select Category</option>
+                    @foreach ($categories as $category)
+                    <option value="{{$category->id}}" {{$category->id == $post->category_id ? 'selected' : ''}}>{{$category->name}}</option>
+                    @endforeach
+                </select>
+
+                
+
+            </div> --}}
+
+            <div class="form-group mb-3">
+                <h5>Tags</h5>
+                @foreach ($tags as $tag)
+                    <div class="form-check form-check-inline">
+                        <input type="checkbox" class="form-check-input" {{in_array($tag->id, old("tags", [])) ? 'checked' : ''}} id="{{$tag->slug}}" name="tags[]" value="{{$tag->id}}">
+                        <label class="form-check-label"  for="{{$tag->slug}}">{{$tag->name}}</label>
+                    </div>
+                @endforeach
+                @error('tags')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>

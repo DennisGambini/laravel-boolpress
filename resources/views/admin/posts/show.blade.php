@@ -13,11 +13,24 @@
             {{$post->content}}
         </div>
 
+        <div class="show-image">
+            <img src="{{asset('storage/'.$post->image)}}" alt="">
+        </div>
+
         <div class="show-categories">
             Categories : 
             {{
             $post->category_id != null ? App\Category::find($post->category_id)->name : 'none'
             }}
+        </div>
+
+        <div class="show-tags">
+            Tags : 
+            <ul>
+                @foreach($post->tags as $tag)
+                    <li>{{$tag->name}}</li>
+                @endforeach
+            </ul>
         </div>
 
         <div class="show-published">
