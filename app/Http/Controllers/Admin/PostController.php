@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use App\Post;
 use App\Category;
 
@@ -66,6 +67,11 @@ class PostController extends Controller
             $count++;
         }
         $newPost->slug = $slug;
+
+        if( isset($data['image']) ) {
+            $path_image = Storage::put("uploads", $data['image']); // uploads/nomeimg.jpg
+            $newPost->image = $path_image;
+        }
 
         $newPost->save();
 

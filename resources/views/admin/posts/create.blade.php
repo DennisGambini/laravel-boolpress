@@ -7,9 +7,9 @@
 <section class="post-create">
 
     <div class="container">
-        <h1>Create e new post</h1>
+        <h1>Create a new post</h1>
 
-        <form action="{{route('admin.posts.store')}}" method="POST">
+        <form action="{{route('admin.posts.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-3">
@@ -26,6 +26,12 @@
             <div class="mb-3 form-check">
               <input type="checkbox" class="form-check-input" id="published" name="published">
               <label class="form-check-label" for="published">Publish now?</label>
+            </div>
+
+            {{-- immagine --}}
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload Post Image</label>
+                <input class="form-control" type="file" id="image" name="image">
             </div>
 
             <div class="mb-3">
