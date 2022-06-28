@@ -2183,10 +2183,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'CardComponent',
   props: {
     item: Object
+  },
+  methods: {
+    cut: function cut(text) {
+      if (text.length > 70) {
+        var newText = text.substring(0, 68) + "...";
+        return newText;
+      } else {
+        return text;
+      }
+    }
   }
 });
 
@@ -38799,9 +38811,9 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
-    _c("div", [_vm._v(_vm._s(_vm.item.title))]),
+    _c("div", { staticClass: "title" }, [_vm._v(_vm._s(_vm.item.title))]),
     _vm._v(" "),
-    _c("div", [_vm._v(_vm._s(_vm.item.created_at))]),
+    _c("div", { staticClass: "date" }, [_vm._v(_vm._s(_vm.item.created_at))]),
     _vm._v(" "),
     _c("div", { staticClass: "img-container" }, [
       _c("img", {
@@ -38809,12 +38821,21 @@ var render = function () {
       }),
     ]),
     _vm._v(" "),
-    _c("div"),
+    _c("div", { staticClass: "content" }, [
+      _vm._v(_vm._s(_vm.cut(_vm.item.content))),
+    ]),
     _vm._v(" "),
-    _c("div"),
+    _vm._m(0),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("a", { attrs: { href: "#" } }, [_vm._v("Let's go")])])
+  },
+]
 render._withStripped = true
 
 

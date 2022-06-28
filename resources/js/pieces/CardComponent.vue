@@ -1,13 +1,15 @@
 <template>
 
     <div class="card">
-        <div>{{item.title}}</div>
-        <div>{{item.created_at}}</div>
+        <div class="title">{{item.title}}</div>
+        <div class="date">{{item.created_at}}</div>
         <div class="img-container">
             <img :src="'storage/' + item.image" alt="Image not available">
         </div>
-        <div></div>
-        <div></div>
+        <div class="content">{{cut(item.content)}}</div>
+        <div>
+            <a href="#">Let's go</a>
+        </div>
     </div>
 
 </template>
@@ -17,6 +19,16 @@ export default {
     name:'CardComponent',
     props:{
         item : Object
+    },
+    methods:{
+        cut(text){
+            if(text.length > 70){
+                let newText = text.substring(0, 68) + "...";
+                return newText;
+            } else {
+                return text
+            }
+        }
     }
 }
 </script>
