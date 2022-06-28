@@ -8,7 +8,7 @@
         </div>
         <div class="content">{{cut(item.content)}}</div>
         <div>
-            <a href="#">Let's go</a>
+             <router-link :to="{name: 'post-detail', params: { slug: item.slug } }">See this Post</router-link>
         </div>
     </div>
 

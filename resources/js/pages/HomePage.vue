@@ -18,17 +18,8 @@ export default {
     data(){
         return{
             titoloApp: "Boolpress",
-            // posts: []
         }
     },
-    // mounted(){
-    //     axios.get('/api/posts').then((res)=>{
-    //         this.posts = res.data;
-    //         console.log(this.posts)
-    //     }).catch((err)=>{
-    //         console.log(err);
-    //     })
-    // }
 }
 </script>
 

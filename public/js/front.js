@@ -2062,18 +2062,9 @@ __webpack_require__.r(__webpack_exports__);
   name: 'HomePage',
   data: function data() {
     return {
-      titoloApp: "Boolpress" // posts: []
-
+      titoloApp: "Boolpress"
     };
-  } // mounted(){
-  //     axios.get('/api/posts').then((res)=>{
-  //         this.posts = res.data;
-  //         console.log(this.posts)
-  //     }).catch((err)=>{
-  //         console.log(err);
-  //     })
-  // }
-
+  }
 });
 
 /***/ }),
@@ -2101,8 +2092,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'PostDetailPage'
+  name: 'PostDetailPage',
+  data: function data() {
+    return {
+      post: null
+    };
+  },
+  mounted: function mounted() {
+    this.getPostCall();
+  },
+  methods: {
+    getPostCall: function getPostCall() {
+      var _this = this;
+
+      var postSlug = this.$route.params.slug;
+      axios.get('/api/posts/' + postSlug).then(function (res) {
+        console.log(res.data);
+        _this.post = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -38733,20 +38751,26 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("section", [
-      _c("div", { staticClass: "container" }, [
-        _c("h1", { staticClass: "text-center" }, [_vm._v("POST DETAIL")]),
+  return _c("section", [
+    _c("div", { staticClass: "container" }, [
+      _c("h1", { staticClass: "text-center" }, [
+        _vm._v(_vm._s(_vm.post.title)),
       ]),
-    ])
-  },
-]
+      _vm._v(" "),
+      _c("div", { staticClass: "jumbo" }, [
+        _c("img", {
+          attrs: {
+            src: "../storage/" + _vm.post.image,
+            alt: "image not available",
+          },
+        }),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "content" }, [_vm._v(_vm._s(_vm.post.content))]),
+    ]),
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -38825,17 +38849,24 @@ var render = function () {
       _vm._v(_vm._s(_vm.cut(_vm.item.content))),
     ]),
     _vm._v(" "),
-    _vm._m(0),
+    _c(
+      "div",
+      [
+        _c(
+          "router-link",
+          {
+            attrs: {
+              to: { name: "post-detail", params: { slug: _vm.item.slug } },
+            },
+          },
+          [_vm._v("See this Post")]
+        ),
+      ],
+      1
+    ),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("a", { attrs: { href: "#" } }, [_vm._v("Let's go")])])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
