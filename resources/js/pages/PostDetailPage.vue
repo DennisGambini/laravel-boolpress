@@ -14,7 +14,19 @@
 
             <div class="category">Categoria : {{post.category ? post.category.name : 'none'}}</div>
 
-            <div class="created">Created : {{post.created_at}}</div>
+            <div class="created">
+
+                <div class="date">
+                    <span>Created on : </span>  
+                    <span>{{getDay(post.created_at)}}</span>
+                </div>
+
+                <div class="time">
+                    <span> At : </span>  
+                    <span>{{getTime(post.created_at)}}</span>
+                </div>
+                
+            </div>
 
             <div class="icons">Published ? 
                 <i class="fa-solid fa-circle-check" v-if="post.published === 1"></i>
@@ -53,6 +65,16 @@ export default {
             }).catch((err)=>{
                 console.log(err)
             })
+        },
+        getDay(date){
+            let myArr = date.split('T');
+            console.log(myArr);
+            return myArr[0];
+        },
+        getTime(date){
+            let myArr = date.split('T');
+            let myTime = myArr[1].split('.')[0];
+            return myTime;
         }
     }
 }

@@ -2113,6 +2113,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PostDetailPage',
   data: function data() {
@@ -2134,6 +2146,16 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         console.log(err);
       });
+    },
+    getDay: function getDay(date) {
+      var myArr = date.split('T');
+      console.log(myArr);
+      return myArr[0];
+    },
+    getTime: function getTime(date) {
+      var myArr = date.split('T');
+      var myTime = myArr[1].split('.')[0];
+      return myTime;
     }
   }
 });
@@ -38843,7 +38865,17 @@ var render = function () {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "created" }, [
-            _vm._v("Created : " + _vm._s(_vm.post.created_at)),
+            _c("div", { staticClass: "date" }, [
+              _c("span", [_vm._v("Created on : ")]),
+              _vm._v(" "),
+              _c("span", [_vm._v(_vm._s(_vm.getDay(_vm.post.created_at)))]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "time" }, [
+              _c("span", [_vm._v(" At : ")]),
+              _vm._v(" "),
+              _c("span", [_vm._v(_vm._s(_vm.getTime(_vm.post.created_at)))]),
+            ]),
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "icons" }, [
