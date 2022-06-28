@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <footer>
-            <h3 class="text-center">Footer</h3>
+            <h3 class="text-center">Footer di Vue</h3>
         </footer>
     </div>
 </template>

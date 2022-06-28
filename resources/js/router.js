@@ -8,6 +8,8 @@ Vue.use(VueRouter);
 import HomePage from './pages/HomePage';
 import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
+import PostsPage from './pages/PostsPage';
+import PostDetailPage from './pages/PostDetailPage';
 
 const router = new VueRouter({
     mode: 'history',
@@ -26,6 +28,16 @@ const router = new VueRouter({
             path: '/blog',
             name: 'blog',
             component: BlogPage
+        },
+        {
+            path: '/posts',
+            name: 'posts',
+            component: PostsPage
+        },
+        {
+            path: '/posts/:slug',
+            name: 'post-detail',
+            component: PostDetailPage
         }
     ]
 });

@@ -4,7 +4,7 @@
 
         <div class="container">
 
-            <h1 class="text-center">CONTATTI</h1>
+            <h1 class="text-center">POST DETAIL</h1>
 
         </div>
         
@@ -14,6 +14,6 @@
 
 <script>
 export default {
-    name: 'ContactPage'
+    name: 'PostDetailPage'
 }
 </script>
