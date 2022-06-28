@@ -17,12 +17,7 @@ export default {
     AppMain,
     AppFooter 
     },
-    name: 'App',
-    data(){
-        return{
-            
-        }
-    } 
+    name: 'App'
 }
 </script>
 
