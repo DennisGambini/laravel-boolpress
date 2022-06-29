@@ -10,6 +10,7 @@ import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
 import PostsPage from './pages/PostsPage';
 import PostDetailPage from './pages/PostDetailPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const router = new VueRouter({
     mode: 'history',
@@ -38,6 +39,11 @@ const router = new VueRouter({
             path: '/posts/:slug',
             name: 'post-detail',
             component: PostDetailPage
+        },
+        {
+            path: '*',
+            name: 'not-found',
+            component: NotFoundPage
         }
     ]
 });
