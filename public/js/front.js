@@ -2255,6 +2255,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PostDetailPage',
   data: function data() {
@@ -2306,7 +2308,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log('new comment : ', newComment);
       axios.post('/api/comments', newComment).then(function (res) {
         console.log('sono in res');
-        console.log(res.data);
+        console.log(res.data); // se faccio così da errore nei metodi
 
         _this2.post.comments.push(newComment);
       })["catch"](function (error) {
@@ -39221,40 +39223,52 @@ var render = function () {
               ])
             : _c("div", [_c("h5", [_vm._v("NO TAGS ON THIS POST")])]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "comments-display" },
-            [
-              _c("h3", [_vm._v("Comments")]),
-              _vm._v(" "),
-              _vm._l(_vm.post.comments, function (comment) {
-                return _c("div", { key: comment.id, staticClass: "comment" }, [
-                  _c("h4", [_vm._v(_vm._s(comment.username) + " says :")]),
+          _vm.post.comments.length > 0
+            ? _c(
+                "div",
+                { staticClass: "comments-display" },
+                [
+                  _c("h3", [_vm._v("Comments")]),
                   _vm._v(" "),
-                  _c("h5", [_vm._v(_vm._s(comment.title))]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v(_vm._s(comment.content))]),
-                  _vm._v(" "),
-                  _c("small", { staticClass: "date" }, [
-                    _c("span", [_vm._v("Created on : ")]),
-                    _vm._v(" "),
-                    _c("span", [
-                      _vm._v(_vm._s(_vm.getDay(comment.created_at))),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("small", { staticClass: "time" }, [
-                    _c("span", [_vm._v(" At : ")]),
-                    _vm._v(" "),
-                    _c("span", [
-                      _vm._v(_vm._s(_vm.getTime(comment.created_at))),
-                    ]),
-                  ]),
-                ])
-              }),
-            ],
-            2
-          ),
+                  _vm._l(_vm.post.comments, function (comment) {
+                    return _c(
+                      "div",
+                      { key: comment.id, staticClass: "comment" },
+                      [
+                        _c("h4", [
+                          _vm._v(_vm._s(comment.username) + " says :"),
+                        ]),
+                        _vm._v(" "),
+                        _c("h5", [_vm._v(_vm._s(comment.title))]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(comment.content))]),
+                        _vm._v(" "),
+                        _c("small", { staticClass: "date" }, [
+                          _c("span", [_vm._v("Created on : ")]),
+                          _vm._v(" "),
+                          comment.created_at
+                            ? _c("span", [
+                                _vm._v(_vm._s(_vm.getDay(comment.created_at))),
+                              ])
+                            : _c("span", [_vm._v("Today")]),
+                        ]),
+                        _vm._v(" "),
+                        _c("small", { staticClass: "time" }, [
+                          _c("span", [_vm._v(" At : ")]),
+                          _vm._v(" "),
+                          comment.created_at
+                            ? _c("span", [
+                                _vm._v(_vm._s(_vm.getTime(comment.created_at))),
+                              ])
+                            : _c("span", [_vm._v("Now")]),
+                        ]),
+                      ]
+                    )
+                  }),
+                ],
+                2
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c("div", { staticClass: "comments" }, [
             _c(

@@ -52,7 +52,7 @@
             </div>
 
             <!-- visualizzazione commenti -->
-                <div class="comments-display">
+                <div class="comments-display" v-if="post.comments.length > 0">
 
                     <h3>Comments</h3>
 
@@ -66,12 +66,14 @@
                         
                         <small class="date">
                             <span>Created on : </span>  
-                            <span>{{getDay(comment.created_at)}}</span>
+                            <span v-if="comment.created_at">{{getDay(comment.created_at)}}</span>
+                            <span v-else>Today</span>
                         </small>
 
                         <small class="time">
                             <span> At : </span>  
-                            <span>{{getTime(comment.created_at)}}</span>
+                            <span v-if="comment.created_at">{{getTime(comment.created_at)}}</span>
+                            <span v-else>Now</span>
                         </small>
 
                     </div>  
@@ -162,6 +164,7 @@ export default {
             .then((res)=>{
                 console.log('sono in res')
                 console.log(res.data);
+                // se faccio così da errore nei metodi
                 this.post.comments.push(newComment);
             })
             .catch((error)=>{
