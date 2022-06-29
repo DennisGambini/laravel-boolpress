@@ -48,6 +48,12 @@ class PostController extends Controller
      */
     public function show($slug){
         $post = Post::where('slug', $slug)->with(["category", "tags"])->first();
+        // if(empty($post)){
+        //     return response()->json(['message'=>'Nope....page not found'], 404);
+        // }
+        if(empty($post)){
+            return response()->json(['message'=>'Post not found'], 404);
+        }
         return response()->json($post);
     }
 

@@ -2209,6 +2209,10 @@ __webpack_require__.r(__webpack_exports__);
         console.log(_this.post);
       })["catch"](function (err) {
         console.log(err);
+
+        _this.$router.push({
+          name: 'not-found'
+        });
       });
     },
     getDay: function getDay(date) {

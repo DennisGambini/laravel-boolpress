@@ -64,6 +64,7 @@ export default {
                 console.log(this.post);
             }).catch((err)=>{
                 console.log(err)
+                this.$router.push({name : 'not-found'})
             })
         },
         getDay(date){
