@@ -33,11 +33,39 @@
                 <i class="fa-solid fa-circle-xmark" v-if="post.published === 0"></i>
             </div>
 
-            <h5>TAGS</h5>
-            <div class="tags row" v-if="post.tags !== []">
-                <div v-for="tag in post.tags" :key="tag.id" class="col">{{tag.name}}</div>
+            <div v-if="post.tags !== []">
+                <h5>TAGS</h5>
+                <div class="tags row" >
+                    <div v-for="tag in post.tags" :key="tag.id" class="col">{{tag.name}}</div>
+                </div>
             </div>
-            <div v-else>none</div>
+
+            <div v-else>
+                <h5>NO TAGS ON THIS POST</h5>
+            </div>
+
+            <div class="comments">
+                <form action="/api/comments/store" method="post">
+
+                    <div class="mb-3">
+                        <label for="comment-username">Username</label>
+                        <input type="text" name="username" id="comment-username" placeholder="Your Username">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="comment-title">Title</label>
+                        <input type="text" name="title" id="comment-title" placeholder="insert a title for comment">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="comment-content">Content</label>
+                        <input type="text" name="content" id="comment-content" placeholder="insert you content here...">
+                    </div>
+
+                    <button type="submit" @submit.prevent="postComment">Confirm</button>
+
+                </form>
+            </div>
 
         </div>
         
