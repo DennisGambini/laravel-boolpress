@@ -2189,6 +2189,72 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PostDetailPage',
   data: function data() {
@@ -2224,6 +2290,29 @@ __webpack_require__.r(__webpack_exports__);
       var myArr = date.split('T');
       var myTime = myArr[1].split('.')[0];
       return myTime;
+    },
+    postComment: function postComment() {
+      var _this2 = this;
+
+      var newUser = document.getElementById("comment-username");
+      var newTitle = document.getElementById("comment-title");
+      var newContent = document.getElementById("comment-content");
+      var newComment = {
+        title: newTitle.value,
+        content: newContent.value,
+        username: newUser.value,
+        post_id: this.post.id
+      };
+      console.log('new comment : ', newComment);
+      axios.post('/api/comments', newComment).then(function (res) {
+        console.log('sono in res');
+        console.log(res.data);
+
+        _this2.post.comments.push(newComment);
+      })["catch"](function (error) {
+        console.log('sono in err');
+        console.log(error);
+      });
     }
   }
 });
@@ -6778,7 +6867,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".tags > .col[data-v-32767d09] {\n  padding: 10px;\n  border: 1px solid black;\n  flex-grow: 0;\n}", ""]);
+exports.push([module.i, ".tags > .col[data-v-32767d09] {\n  padding: 10px;\n  border: 1px solid black;\n  flex-grow: 0;\n}\n.comment[data-v-32767d09] {\n  border: 1px solid black;\n  padding: 10px;\n}\n.comment h5[data-v-32767d09] {\n  color: red;\n}\n.comment small[data-v-32767d09] {\n  display: flex;\n  justify-content: flex-end;\n}", ""]);
 
 // exports
 
@@ -39115,25 +39204,139 @@ var render = function () {
               : _vm._e(),
           ]),
           _vm._v(" "),
-          _c("h5", [_vm._v("TAGS")]),
+          _vm.post.tags.length > 0
+            ? _c("div", [
+                _c("h5", [_vm._v("TAGS")]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "tags row" },
+                  _vm._l(_vm.post.tags, function (tag) {
+                    return _c("div", { key: tag.id, staticClass: "col" }, [
+                      _vm._v(_vm._s(tag.name)),
+                    ])
+                  }),
+                  0
+                ),
+              ])
+            : _c("div", [_c("h5", [_vm._v("NO TAGS ON THIS POST")])]),
           _vm._v(" "),
-          _vm.post.tags !== []
-            ? _c(
-                "div",
-                { staticClass: "tags row" },
-                _vm._l(_vm.post.tags, function (tag) {
-                  return _c("div", { key: tag.id, staticClass: "col" }, [
-                    _vm._v(_vm._s(tag.name)),
-                  ])
-                }),
-                0
-              )
-            : _c("div", [_vm._v("none")]),
+          _c(
+            "div",
+            { staticClass: "comments-display" },
+            [
+              _c("h3", [_vm._v("Comments")]),
+              _vm._v(" "),
+              _vm._l(_vm.post.comments, function (comment) {
+                return _c("div", { key: comment.id, staticClass: "comment" }, [
+                  _c("h4", [_vm._v(_vm._s(comment.username) + " says :")]),
+                  _vm._v(" "),
+                  _c("h5", [_vm._v(_vm._s(comment.title))]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(_vm._s(comment.content))]),
+                  _vm._v(" "),
+                  _c("small", { staticClass: "date" }, [
+                    _c("span", [_vm._v("Created on : ")]),
+                    _vm._v(" "),
+                    _c("span", [
+                      _vm._v(_vm._s(_vm.getDay(comment.created_at))),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("small", { staticClass: "time" }, [
+                    _c("span", [_vm._v(" At : ")]),
+                    _vm._v(" "),
+                    _c("span", [
+                      _vm._v(_vm._s(_vm.getTime(comment.created_at))),
+                    ]),
+                  ]),
+                ])
+              }),
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "comments" }, [
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function ($event) {
+                    $event.preventDefault()
+                    return _vm.postComment.apply(null, arguments)
+                  },
+                },
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
+                _vm._m(2),
+                _vm._v(" "),
+                _c("button", { attrs: { type: "submit" } }, [
+                  _vm._v("Confirm"),
+                ]),
+              ]
+            ),
+          ]),
         ])
       : _vm._e(),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mb-3" }, [
+      _c("label", { attrs: { for: "comment-username" } }, [_vm._v("Username")]),
+      _vm._v(" "),
+      _c("input", {
+        attrs: {
+          type: "text",
+          name: "username",
+          id: "comment-username",
+          placeholder: "Your Username",
+        },
+      }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mb-3" }, [
+      _c("label", { attrs: { for: "comment-title" } }, [_vm._v("Title")]),
+      _vm._v(" "),
+      _c("input", {
+        attrs: {
+          type: "text",
+          name: "title",
+          id: "comment-title",
+          placeholder: "insert a title for comment",
+        },
+      }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mb-3" }, [
+      _c("label", { attrs: { for: "comment-content" } }, [_vm._v("Content")]),
+      _vm._v(" "),
+      _c("input", {
+        attrs: {
+          type: "text",
+          name: "content",
+          id: "comment-content",
+          placeholder: "insert you content here...",
+        },
+      }),
+    ])
+  },
+]
 render._withStripped = true
 
 

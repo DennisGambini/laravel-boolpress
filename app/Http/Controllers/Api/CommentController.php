@@ -53,6 +53,8 @@ class CommentController extends Controller
         $newComment->username = $data['username'];
 
         $newComment->save();
+
+        return response()->json($newComment);
     }
 
     /**

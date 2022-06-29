@@ -47,7 +47,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($slug){
-        $post = Post::where('slug', $slug)->with(["category", "tags"])->first();
+        $post = Post::where('slug', $slug)->with(["category", "tags", "comments"])->first();
         // if(empty($post)){
         //     return response()->json(['message'=>'Nope....page not found'], 404);
         // }

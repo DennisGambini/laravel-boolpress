@@ -4,16 +4,21 @@
 
         <div class="container" v-if="post">
 
+            <!-- titolo -->
             <h1 class="text-center">{{post.title}}</h1>
 
+            <!-- immagine -->
             <div class="jumbo">
                 <img :src="'../storage/' + post.image" alt="image not available">
             </div>
 
+            <!-- main content -->
             <div class="content">{{post.content}}</div>
 
+            <!-- categoria -->
             <div class="category">Categoria : {{post.category ? post.category.name : 'none'}}</div>
 
+            <!-- data -->
             <div class="created">
 
                 <div class="date">
@@ -28,12 +33,14 @@
                 
             </div>
 
+            <!-- pubblicato -->
             <div class="icons">Published ? 
                 <i class="fa-solid fa-circle-check" v-if="post.published === 1"></i>
                 <i class="fa-solid fa-circle-xmark" v-if="post.published === 0"></i>
             </div>
 
-            <div v-if="post.tags !== []">
+            <!-- tags -->
+            <div v-if="post.tags.length > 0">
                 <h5>TAGS</h5>
                 <div class="tags row" >
                     <div v-for="tag in post.tags" :key="tag.id" class="col">{{tag.name}}</div>
@@ -44,8 +51,36 @@
                 <h5>NO TAGS ON THIS POST</h5>
             </div>
 
+            <!-- visualizzazione commenti -->
+                <div class="comments-display">
+
+                    <h3>Comments</h3>
+
+                    <div v-for="comment in post.comments" :key="comment.id" class="comment">
+                        
+                        <h4>{{comment.username}} says :</h4>
+                        
+                        <h5>{{comment.title}}</h5>
+                        
+                        <p>{{comment.content}}</p>
+                        
+                        <small class="date">
+                            <span>Created on : </span>  
+                            <span>{{getDay(comment.created_at)}}</span>
+                        </small>
+
+                        <small class="time">
+                            <span> At : </span>  
+                            <span>{{getTime(comment.created_at)}}</span>
+                        </small>
+
+                    </div>  
+
+                </div>
+
+            <!-- form commenti -->
             <div class="comments">
-                <form action="/api/comments/store" method="post">
+                <form @submit.prevent="postComment">
 
                     <div class="mb-3">
                         <label for="comment-username">Username</label>
@@ -62,9 +97,12 @@
                         <input type="text" name="content" id="comment-content" placeholder="insert you content here...">
                     </div>
 
-                    <button type="submit" @submit.prevent="postComment">Confirm</button>
+                    <button type="submit">Confirm</button>
 
                 </form>
+
+                
+
             </div>
 
         </div>
@@ -104,6 +142,32 @@ export default {
             let myArr = date.split('T');
             let myTime = myArr[1].split('.')[0];
             return myTime;
+        },
+        postComment(){
+            const newUser = document.getElementById("comment-username");
+            const newTitle = document.getElementById("comment-title");
+            const newContent = document.getElementById("comment-content");
+
+            const newComment = {
+                title: newTitle.value,
+                content: newContent.value,
+                username: newUser.value,
+                post_id: this.post.id
+            }
+
+            console.log('new comment : ',newComment);
+            
+            axios
+            .post('/api/comments', newComment)
+            .then((res)=>{
+                console.log('sono in res')
+                console.log(res.data);
+                this.post.comments.push(newComment);
+            })
+            .catch((error)=>{
+                console.log('sono in err')
+                console.log(error)
+            })
         }
     }
 }
@@ -114,5 +178,16 @@ export default {
     padding: 10px;
     border: 1px solid black;
     flex-grow: 0;
+}
+.comment{
+    border: 1px solid black;
+    padding: 10px;
+    h5{
+        color: red;
+    }
+    small{
+        display: flex;
+        justify-content: flex-end;
+    }
 }
 </style>
