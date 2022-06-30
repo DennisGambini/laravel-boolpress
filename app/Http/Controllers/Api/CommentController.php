@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Comment;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PostCommented;
+
 
 class CommentController extends Controller
 {
@@ -53,6 +56,8 @@ class CommentController extends Controller
         $newComment->username = $data['username'];
 
         $newComment->save();
+
+        Mail::to('boolpress.project@gmail.com')->send(new PostCommented($newComment->post_id, $newComment->id));
 
         return response()->json($newComment);
     }
