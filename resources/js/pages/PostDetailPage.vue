@@ -164,7 +164,14 @@ export default {
             .then((res)=>{
                 console.log('sono in res')
                 console.log(res.data);
+
+                // svuoto il form
+                newTitle.value = '';
+                newContent.value = '';
+                newUser.value = '';
+
                 // se faccio così da errore nei metodi
+                // ps: sistemato con controllino v-if
                 this.post.comments.push(newComment);
             })
             .catch((error)=>{

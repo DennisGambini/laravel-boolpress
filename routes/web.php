@@ -28,7 +28,14 @@ Route::middleware('auth')
         Route::resource('/posts', 'PostController');
         Route::resource('/categories', 'CategoryController');
         Route::resource('/tags', 'TagController');
+        // questa andrà tolta perchè per ragioni di sicurezza, lo gestisce già laravel da solo
+        Route::resource('/users', 'UserController');
     });
+
+Route::get('/logout', function(){
+    Auth::logout();
+    return redirect('/');
+});
 
 Route::get("{any?}", function() {
     return view('guest.home_guest');

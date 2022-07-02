@@ -1,0 +1,18 @@
+section.all-posts{
+    .container{
+        .row{
+            .col-3{
+                .post-card{
+                    .post-image{
+                        height: 100px;
+                        overflow: hidden;
+                        img{
+                            height: 100px;
+                            object-fit: contain;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

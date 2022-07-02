@@ -21,32 +21,44 @@
 
             <div class="col-3">
                 <div class="post-card">
+
                     <div class="post-title">
                         <span class="post-span">Titolo : </span>
                         <a href="{{route('admin.posts.show', $post->id)}}">{{$post->title}}</a>
                     </div>
+                    
+                    <div class="post-image">
+                        <img src="{{asset("storage/{$post->image}")}}" alt="image not found">
+                    </div>
+
                     <div class="post-categories">
                         <span class="post-span">Categories : </span>
                         {{
                         $post->category_id != null ? App\Category::find($post->category_id)->name : 'none'
                         }}
                     </div>
+
+
                     <div class="post-content">
                         <span class="post-span">Content : </span>
                         {{$post->content}}
                     </div>
+
                     <div class="post-slug">
                         <span class="post-span">Slug : </span>
                         {{$post->slug}}
                     </div>
+
                     <div class="post-published">
                         <span class="post-span">Published : </span>
                         {{$post->published}}
                     </div>
+
                     <div class="post-date">
                         <span class="post-span">Created : </span>
                         {{$post->created_at}}
                     </div>
+
                     <div class="post-btns">
 
                         {{-- bottone/form delete --}}

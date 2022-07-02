@@ -9,13 +9,17 @@ use Illuminate\Support\Facades\Storage;
 use App\Post;
 use App\Category;
 use App\Tag;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
     protected $validationRules = [
-        "title" => "required|string|max:60",
-        "content" => "required|max:1000",
-        "published" => "sometimes|accepted"
+        "title" => "required|string|max:100",
+        "content" => "required",
+        "published" => "sometimes|accepted",
+        "category_id" => "nullable|exists:categories,id",
+        "image" => "nullable|image|mimes:jpeg,bmp,png,svg|max:2048",
+        'tags'=> "nullable|exists:tags,id"
     ];
 
     /**
@@ -125,25 +129,33 @@ class PostController extends Controller
 
         $updatedPost = Post::findOrFail($id);
 
-        $updatedPost->title = $data['title'];
         $updatedPost->content = $data['content'];
         $updatedPost->published = isset($data['published']);
         $updatedPost->category_id = $data['category_id'];
-
+        
         if($updatedPost->title != $data['title']){
+            $updatedPost->title = $data['title'];
 
-            $slug = Str::of($post->title)->slug('-');
+            $slug = Str::of($updatedPost->title)->slug('-');
             if($slug != $updatedPost->slug){
                 $updatedPost->slug = $this->getSlug($updatedPost->title);
             }
         }
 
+        // if( isset($data['image']) ) {
+        //     // cancello l'immagine
+        //     Storage::delete($updatedPost->image);
+        //     // salvo la nuova immagine
+        //     $path_image = Storage::put("uploads", $data['image']);
+        //     $post->image = $path_image;
+        // }
         if( isset($data['image']) ) {
             // cancello l'immagine
-            Storage::delete($post->image);
+            Storage::delete($updatedPost->image);
+
             // salvo la nuova immagine
-            $path_image = Storage::put("uploads", $data['image']);
-            $post->image = $path_image;
+            $path_image = Storage::put('uploads', $data['image']);
+            $updatedPost->image = $path_image;
         }
 
         $updatedPost->update();

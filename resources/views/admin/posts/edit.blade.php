@@ -9,7 +9,7 @@
     <div class="container">
         <h1>Modify Post</h1>
 
-        <form action="{{route('admin.posts.update', $post->id)}}" method="POST">
+        <form action="{{route('admin.posts.update', $post->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -33,8 +33,14 @@
             <div class="mb-3">
                 <label for="image" class="form-label">Upload Post Image</label>
                 <input class="form-control" type="file" id="image" name="image">
-                <img src="{{asset('storage/'.$post->image)}}" alt="user post image">
+                @if ($post->image)
+                    <img id="imagePreview" src="{{asset("storage/{$post->image}")}}" alt="user post image">
+                @else
+                    <img id="imagePreview" src="" alt="no image set">
+                @endif
+                
             </div>
+
 
             {{-- categorie --}}
             <div class="mb-3">
@@ -46,20 +52,6 @@
                     @endforeach
                 </select>
             </div>
-
-            {{-- tags --}}
-            {{-- <div class="mb-3">
-                <label for="tags" class="form-label">Tags : </label>
-                <select name="tags" id="category_id">
-                    <option value="">Select Category</option>
-                    @foreach ($categories as $category)
-                    <option value="{{$category->id}}" {{$category->id == $post->category_id ? 'selected' : ''}}>{{$category->name}}</option>
-                    @endforeach
-                </select>
-
-                
-
-            </div> --}}
 
             <div class="form-group mb-3">
                 <h5>Tags</h5>
@@ -82,7 +74,7 @@
 
 
     
-
+    <script src="{{asset('js/app.js')}}"></script>
 </section>
     
 @endsection
